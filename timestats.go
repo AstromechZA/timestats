@@ -93,7 +93,7 @@ func mainInner() error {
 
 	// output settings
 	quietFlag := flag.Bool("quiet", false, "Don't print results of the command")
-	//outputFileFlag := flag.String("output", "", "Output json file of data gathered")
+	outputFileFlag := flag.String("output", "", "Output json file of data gathered")
 
 	// graph dimension settings
 	graphWidth := flag.Int("graphx", 100, "Width of the distribution graph")
@@ -144,6 +144,12 @@ func mainInner() error {
 	fmt.Println()
 	PrintGraph(timeStats, *graphHeight, *graphWidth)
 
+    // build and output json file if required
+    outputFile := *outputFileFlag
+    if outputFile != "" {
+        fmt.Printf("Writing data to %s...\n", outputFile)
+        return WriteOutputData(timeStats, outputFile)
+    }
 	return nil
 }
 
