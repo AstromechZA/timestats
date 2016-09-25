@@ -7,6 +7,34 @@ and further analysis.
 
 I wrote this fairly simple Golang binary to do this. Some of the features are:
 
+```
+$ ./timestats --help
+This binary is used to run multiple iterations of a
+command while timing each run. Various statistics are computed on the final
+times and a basic graph of the distribution is draw to illustrate the timings.
+
+Various options can be provided to configure the output but the most important
+flag is the '-output' flag that will save the raw data along with some stats
+for further analysis.
+
+This tool is useful for doing benchmarking of requests, commands, etc.
+
+  -count int
+        Number of iterations (default 1)
+  -graphx int
+        Width of the distribution graph (default 100)
+  -graphy int
+        Height of the distribution graph (default 10)
+  -interval float
+        Seconds to wait between iterations
+  -output string
+        Output json file of data gathered
+  -quiet
+        Don't print results of the command
+  -version
+        Print the version string.
+```
+
 ### Statistics summary:
 
 Some basic, commonly asked for stats:
