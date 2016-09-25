@@ -10,7 +10,16 @@ import (
 	"time"
 )
 
-const usageString = `todo
+const usageString = `This binary is used to run multiple iterations of a
+command while timing each run. Various statistics are computed on the final
+times and a basic graph of the distribution is draw to illustrate the timings.
+
+Various options can be provided to configure the output but the most important
+flag is the '-output' flag that will save the raw data along with some stats
+for further analysis.
+
+This tool is useful for doing benchmarking of requests, commands, etc.
+
 `
 
 /*
@@ -144,12 +153,12 @@ func mainInner() error {
 	fmt.Println()
 	PrintGraph(timeStats, *graphHeight, *graphWidth)
 
-    // build and output json file if required
-    outputFile := *outputFileFlag
-    if outputFile != "" {
-        fmt.Printf("Writing data to %s...\n", outputFile)
-        return WriteOutputData(timeStats, outputFile)
-    }
+	// build and output json file if required
+	outputFile := *outputFileFlag
+	if outputFile != "" {
+		fmt.Printf("Writing data to %s...\n", outputFile)
+		return WriteOutputData(timeStats, outputFile)
+	}
 	return nil
 }
 
