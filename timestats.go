@@ -22,6 +22,11 @@ This tool is useful for doing benchmarking of requests, commands, etc.
 
 `
 
+// Version is the version string
+// format should be 'X.YZ'
+// Set this at build time using the -ldflags="-X main.Version=X.YZ"
+var Version = "<unofficial build>"
+
 /*
 PrintStatistics takes in a StatBucket object and prints a variety of
 measures to Stdout.
@@ -108,6 +113,8 @@ func mainInner() error {
 	graphWidth := flag.Int("graphx", 100, "Width of the distribution graph")
 	graphHeight := flag.Int("graphy", 10, "Height of the distribution graph")
 
+	versionFlag := flag.Bool("version", false, "Print the version string.")
+
 	// set a more verbose usage message.
 	flag.Usage = func() {
 		os.Stderr.WriteString(usageString)
@@ -115,6 +122,13 @@ func mainInner() error {
 	}
 	// parse them
 	flag.Parse()
+
+	// first do arg checking
+	if *versionFlag {
+		fmt.Println("Version " + Version)
+		fmt.Println("Project: https://github.com/AstromechZA/timestats")
+		return nil
+	}
 
 	// expect a command
 	if flag.NArg() < 1 {

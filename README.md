@@ -49,9 +49,8 @@ _███       ████
 3.06 milliseconds                                                                 20.10 milliseconds
 ```
 
-## More to come:
+## Future work:
 
-- JSON data dump
 - Show mean/p50 on histogram
 - Coloured output?
-- Make instructions, release binaries
+- Provide analysis of exit codes as well
