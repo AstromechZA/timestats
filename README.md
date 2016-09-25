@@ -49,6 +49,68 @@ _███       ████
 3.06 milliseconds                                                                 20.10 milliseconds
 ```
 
+## Example: Pinging `facebook.com`
+
+Networks are funny animals, they don't behave as you expect. So while diagnosing
+a connection why not do some stats on the ping time?
+
+```
+$ ./timestats --count 100 --output facebook.json ping -c1 facebook.com
+PING facebook.com (66.220.146.36): 56 data bytes
+64 bytes from 66.220.146.36: icmp_seq=0 ttl=70 time=345.304 ms
+
+--- facebook.com ping statistics ---
+1 packets transmitted, 1 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 345.304/345.304/345.304/0.000 ms
+#0 succeeded after 351.390991ms
+PING facebook.com (66.220.146.36): 56 data bytes
+64 bytes from 66.220.146.36: icmp_seq=0 ttl=70 time=402.874 ms
+
+--- facebook.com ping statistics ---
+1 packets transmitted, 1 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 402.874/402.874/402.874/0.000 ms
+#1 succeeded after 409.90095ms
+
+...<snip>...
+
+--- facebook.com ping statistics ---
+1 packets transmitted, 1 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 403.092/403.092/403.092/0.000 ms
+#99 succeeded after 410.022172ms
+
+Statistics (Nanoseconds):
+-------------------------
+Count 100
+Min   312390716.000000 (312.39 milliseconds)
+Mean  398728423.750000 (398.73 milliseconds)
+Max   412830311.000000 (412.83 milliseconds)
+
+P25   409004564.250000 (409.00 milliseconds)
+P50   409433110.500000 (409.43 milliseconds)
+P75   409697745.000000 (409.70 milliseconds)
+P90   409943612.000000 (409.94 milliseconds)
+P95   410154294.000000 (410.15 milliseconds)
+
+Distribution (normalized):
+-------------------------
+                                                                                                █
+                                                                                                █
+                                                                                                █
+                                                                                                █
+                                                                                                █
+                                                                                                █
+                                                                                                █
+                                                                                                ██
+_                                                                                               ██
+█___                                  _                                             _   __▄_ _  ██ _
+----------------------------------------------------------------------------------------------------
+312.55 milliseconds                                                              410.48 milliseconds
+```
+
+It is interesting to see 2 clusters of times: one at 312ms and one at 410ms. One could predict that
+these are 2 slightly different routing paths, one of which is 100ms faster than the other. Or maybe
+its just gremlins on the wire, time for other tools to check it out.
+
 ## Future work:
 
 - Show mean/p50 on histogram
